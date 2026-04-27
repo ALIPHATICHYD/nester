@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, type ElementType } from "react";
 import { ProtectedRoute } from "@/components/protected-route";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -127,7 +127,7 @@ const SAVINGS_VAULTS: SavingsVault[] = [
     },
 ];
 
-const TYPE_ICONS: Record<SavingsVaultType, React.ElementType> = {
+const TYPE_ICONS: Record<SavingsVaultType, ElementType> = {
     flexible: Unlock,
     "auto-compound": RefreshCcw,
     "stablecoin-yield": BarChart2,
@@ -231,13 +231,13 @@ function SavingsVaultCard({
 
             {/* Meta row */}
             <div className="mb-6 grid grid-cols-2 gap-2">
-                <div className="rounded-xl bg-black/[0.025] px-3 py-3 text-center">
+                <div className="rounded-xl bg-black/2.5 px-3 py-3 text-center">
                     <p className="font-mono text-sm text-black">
                         {vault.lockDays ? `${vault.lockDays}d` : "None"}
                     </p>
                     <p className="text-[10px] text-black/35 mt-0.5">Lock</p>
                 </div>
-                <div className="rounded-xl bg-black/[0.025] px-3 py-3 text-center">
+                <div className="rounded-xl bg-black/2.5 px-3 py-3 text-center">
                     <p className="font-mono text-sm text-black">{vault.penaltyPct}%</p>
                     <p className="text-[10px] text-black/35 mt-0.5">Exit fee</p>
                 </div>
@@ -365,7 +365,7 @@ function DepositModal({
                                                 Amount ({selectedAsset})
                                             </label>
                                             {supportedAssets.length > 1 && (
-                                                <div className="flex rounded-full border border-black/10 bg-black/[0.03] p-0.5">
+                                                <div className="flex rounded-full border border-black/10 bg-black/3 p-0.5">
                                                     {supportedAssets.map((a) => (
                                                         <button
                                                             key={a}
@@ -396,7 +396,7 @@ function DepositModal({
                                                 value={amount}
                                                 onChange={(e) => setAmount(e.target.value)}
                                                 placeholder="0.00"
-                                                className="h-14 w-full rounded-xl border border-black/10 bg-black/[0.02] pl-8 pr-4
+                                                className="h-14 w-full rounded-xl border border-black/10 bg-black/2 pl-8 pr-4
                                                            font-mono text-xl text-black outline-none transition-colors
                                                            focus:border-black/25 focus:bg-white
                                                            [appearance:textfield]
@@ -451,7 +451,7 @@ function DepositModal({
                                                 value={goalName}
                                                 onChange={(e) => setGoalName(e.target.value)}
                                                 placeholder="e.g. Holiday fund, House deposit…"
-                                                className="h-12 w-full rounded-xl border border-black/10 bg-black/[0.02] px-4 text-sm text-black outline-none transition-colors focus:border-black/25"
+                                                className="h-12 w-full rounded-xl border border-black/10 bg-black/2 px-4 text-sm text-black outline-none transition-colors focus:border-black/25"
                                             />
                                         </div>
                                     )}
@@ -667,7 +667,7 @@ export default function SavingsPage() {
                                 exit={{ opacity: 0, height: 0 }}
                                 className="overflow-hidden"
                             >
-                                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 rounded-2xl border border-black/8 p-5 bg-black/[0.015]">
+                                <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 rounded-2xl border border-black/8 p-5 bg-black/1.5">
                                     {[
                                         {
                                             icon: Shield,

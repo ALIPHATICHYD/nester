@@ -144,13 +144,16 @@ func (c *PrometheusClient) doRequest(ctx context.Context, endpoint string, targe
 
 	var resp *http.Response
 	for i := 0; i < 3; i++ {
+		if i > 0 {
+			req.Body = nil
+		}
 		resp, err = c.httpClient.Do(req)
 		if err == nil && resp.StatusCode == http.StatusOK {
 			defer resp.Body.Close()
 			return json.NewDecoder(resp.Body).Decode(target)
 		}
 		if resp != nil && resp.Body != nil {
-			io.ReadAll(resp.Body)
+			_, _ = io.Copy(io.Discard, resp.Body)
 			resp.Body.Close()
 		}
 		if i < 2 {

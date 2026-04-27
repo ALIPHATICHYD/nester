@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useWallet } from "@/components/wallet-provider";
 import { useMemo, useState } from "react";
 import { ProtectedRoute } from "@/components/protected-route";
 import { motion } from "framer-motion";
@@ -87,14 +86,14 @@ export default function Dashboard() {
                 <div className="flex items-center gap-2.5">
                     <Link
                         href="/vaults"
-                        className="flex min-h-[var(--touch-target)] items-center justify-center gap-2 rounded-full border border-black/[0.1] bg-white px-6 sm:px-5 py-2.5 text-[14px] sm:text-[13px] font-medium text-black/65 transition-all hover:border-black/20 hover:shadow-sm active:bg-black/5"
+                        className="flex min-h-(--touch-target) items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-6 sm:px-5 py-2.5 text-[14px] sm:text-[13px] font-medium text-black/65 transition-all hover:border-black/20 hover:shadow-sm active:bg-black/5"
                     >
                         <ArrowDownToLine className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                         Deposit
                     </Link>
                     <Link
                         href="/savings"
-                        className="flex min-h-[var(--touch-target)] items-center justify-center gap-2 rounded-full border border-black/[0.1] bg-white px-6 sm:px-5 py-2.5 text-[14px] sm:text-[13px] font-medium text-black/65 transition-all hover:border-black/20 hover:shadow-sm active:bg-black/5"
+                        className="flex min-h-(--touch-target) items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-6 sm:px-5 py-2.5 text-[14px] sm:text-[13px] font-medium text-black/65 transition-all hover:border-black/20 hover:shadow-sm active:bg-black/5"
                     >
                         <PiggyBank className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                         Save
@@ -107,7 +106,7 @@ export default function Dashboard() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.05 }}
-                className="mb-10 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-0 rounded-2xl border border-black/[0.06] bg-white overflow-hidden"
+                className="mb-10 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-0 rounded-2xl border border-black/6 bg-white overflow-hidden"
             >
                 {/* Left — balance + stats */}
                 <div className="p-8 lg:p-10 flex flex-col justify-between">
@@ -137,7 +136,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Right — chart */}
-                <div className="border-t lg:border-t-0 lg:border-l border-black/[0.06] p-8 lg:p-10 flex flex-col">
+                <div className="border-t lg:border-t-0 lg:border-l border-black/6 p-8 lg:p-10 flex flex-col">
                     <div className="flex items-center justify-end gap-0.5 mb-6">
                         {CHART_PERIODS.map((period) => (
                             <button
@@ -146,7 +145,7 @@ export default function Dashboard() {
                                 className={cn(
                                     "rounded-md px-2.5 py-1 text-[11px] font-medium transition-colors",
                                     chartPeriod === period
-                                        ? "bg-black/[0.06] text-black"
+                                        ? "bg-black/6 text-black"
                                         : "text-black/30 hover:text-black/55"
                                 )}
                             >
@@ -154,7 +153,7 @@ export default function Dashboard() {
                             </button>
                         ))}
                     </div>
-                    <div className="flex-1 min-h-[160px] flex items-end">
+                    <div className="flex-1 min-h-40 flex items-end">
                         <svg viewBox="0 0 400 120" className="w-full h-full" preserveAspectRatio="none">
                             <defs>
                                 <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
@@ -341,7 +340,8 @@ export default function Dashboard() {
                 position={selectedPosition}
             />
             <GuidedTour />
-        </AppShell>
+            </AppShell>
+        </ProtectedRoute>
     );
 }
 
@@ -416,7 +416,5 @@ function WalletBalanceTable({
             </tbody>
         </table>
         </div>
-        </AppShell>
-        </ProtectedRoute>
     );
 }

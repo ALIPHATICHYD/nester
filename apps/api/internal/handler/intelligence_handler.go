@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -34,6 +35,7 @@ func (h *IntelligenceHandler) GetVaultRecommendations(w http.ResponseWriter, r *
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
+	_ = json.NewEncoder(w).Encode(recs)
 }
 
 func (h *IntelligenceHandler) GetMarketSentiment(w http.ResponseWriter, r *http.Request) {
@@ -46,7 +48,7 @@ func (h *IntelligenceHandler) GetMarketSentiment(w http.ResponseWriter, r *http.
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	_ = report
+	_ = json.NewEncoder(w).Encode(report)
 }
 
 func (h *IntelligenceHandler) GetPortfolioInsights(w http.ResponseWriter, r *http.Request) {
@@ -66,5 +68,5 @@ func (h *IntelligenceHandler) GetPortfolioInsights(w http.ResponseWriter, r *htt
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	_ = insights
+	_ = json.NewEncoder(w).Encode(insights)
 }

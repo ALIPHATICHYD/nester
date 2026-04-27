@@ -38,7 +38,7 @@ export function ProtectedRoute({
 
     useEffect(() => {
         if (!isConnected) {
-            router.push("/");
+            router.replace("/");
         }
     }, [isConnected, router]);
 

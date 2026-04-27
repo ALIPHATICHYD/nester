@@ -76,11 +76,10 @@ const TX_ICONS = {
 // ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function PortfolioPage() {
-    const { isConnected, address } = useWallet();
+    const { address } = useWallet();
     const { transactions, positions } = usePortfolio();
     const { prices: tokenPrices } = useTokenPrices();
     const { currentNetwork } = useNetwork();
-    const router = useRouter();
 
     const [walletAssets, setWalletAssets] = useState<WalletAsset[]>([]);
     const [loading, setLoading] = useState(false);
@@ -162,7 +161,7 @@ export default function PortfolioPage() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 }}
-                className="mb-6 rounded-2xl border border-black/[0.06] bg-white overflow-hidden"
+                className="mb-6 rounded-2xl border border-black/6 bg-white overflow-hidden"
             >
                 <div className="p-8">
                     <p className="text-[12px] text-black/35 tracking-wide mb-2">Net Worth</p>
@@ -170,7 +169,7 @@ export default function PortfolioPage() {
                         {hide(fmtUsd(totalUsd))}
                     </p>
                 </div>
-                <div className="border-t border-black/[0.06] grid grid-cols-2 sm:grid-cols-4 divide-x divide-black/[0.06]">
+                <div className="border-t border-black/6 grid grid-cols-2 sm:grid-cols-4 divide-x divide-black/6">
                     {[
                         { label: "Wallet", value: fmtUsd(walletUsd), icon: Wallet },
                         { label: "In Markets", value: fmtUsd(vaultUsd), icon: TrendingUp },
@@ -201,7 +200,7 @@ export default function PortfolioPage() {
                             key={asset.code}
                             className="flex items-center gap-2 rounded-xl border border-black/8 bg-white px-4 py-2.5 shrink-0"
                         >
-                            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-black/[0.04] text-[10px] text-black/50">
+                            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-black/4 text-[10px] text-black/50">
                                 {asset.code.slice(0, 2)}
                             </div>
                             <span className="text-xs text-black/60">{asset.code}</span>
@@ -270,7 +269,7 @@ export default function PortfolioPage() {
                                                 {pos.isMatured ? (
                                                     <span className="text-[10px] bg-black text-white rounded-full px-2 py-0.5">Matured</span>
                                                 ) : (
-                                                    <span className="text-[10px] bg-black/[0.04] text-black/50 rounded-full px-2 py-0.5">{pos.daysRemaining}d left</span>
+                                                    <span className="text-[10px] bg-black/4 text-black/50 rounded-full px-2 py-0.5">{pos.daysRemaining}d left</span>
                                                 )}
                                             </div>
                                             <div className="mt-1 flex items-center gap-3 text-xs text-black/35">
@@ -336,7 +335,7 @@ export default function PortfolioPage() {
                                             className="flex items-center justify-between gap-4 rounded-xl border border-black/8 bg-white px-5 py-3.5"
                                         >
                                             <div className="flex items-center gap-3">
-                                                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/[0.04] text-black/40">
+                                                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-black/4 text-black/40">
                                                     <Icon className="h-3.5 w-3.5" />
                                                 </div>
                                                 <div>
@@ -360,7 +359,7 @@ export default function PortfolioPage() {
                                                         href={`${currentNetwork.explorerUrl}/tx/${tx.txHash}`}
                                                         target="_blank"
                                                         rel="noreferrer"
-                                                        className="flex h-6 w-6 items-center justify-center rounded-md text-black/25 hover:bg-black/[0.04] hover:text-black/50 transition-colors"
+                                                        className="flex h-6 w-6 items-center justify-center rounded-md text-black/25 hover:bg-black/4 hover:text-black/50 transition-colors"
                                                     >
                                                         <ExternalLink className="h-3 w-3" />
                                                     </a>

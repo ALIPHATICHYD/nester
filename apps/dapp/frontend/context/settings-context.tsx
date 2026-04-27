@@ -52,20 +52,15 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const savedTheme = (localStorage.getItem("nester_theme") as Theme) || "system";
         setThemeState(savedTheme);
+    }, []);
 
-        // Determine if dark mode should be active
-        const applyTheme = (themeToApply: Theme) => {
-            const root = document.documentElement;
-            let shouldBeDark = false;
+    useEffect(() => {
+        const root = document.documentElement;
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-            if (themeToApply === "dark") {
-                shouldBeDark = true;
-            } else if (themeToApply === "light") {
-                shouldBeDark = false;
-            } else {
-                // System preference
-                shouldBeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            }
+        const applyTheme = () => {
+            const shouldBeDark =
+                theme === "dark" || (theme === "system" && mediaQuery.matches);
 
             setIsDarkMode(shouldBeDark);
 
@@ -76,19 +71,16 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
             }
         };
 
-        applyTheme(savedTheme);
+        applyTheme();
 
-        // Listen for system theme changes when in system mode
-        if (savedTheme === "system") {
-            const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-            const handleChange = (e: MediaQueryListEvent) => {
-                applyTheme("system");
-            };
-
-            mediaQuery.addEventListener("change", handleChange);
-            return () => mediaQuery.removeEventListener("change", handleChange);
+        if (theme !== "system") {
+            return;
         }
-    }, []);
+
+        const handleChange = () => applyTheme();
+        mediaQuery.addEventListener("change", handleChange);
+        return () => mediaQuery.removeEventListener("change", handleChange);
+    }, [theme]);
 
     const setCurrency = (val: Currency) => {
         setCurrencyState(val);
@@ -98,26 +90,6 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     const setTheme = (val: Theme) => {
         setThemeState(val);
         localStorage.setItem("nester_theme", val);
-
-        // Apply theme immediately
-        const root = document.documentElement;
-        let shouldBeDark = false;
-
-        if (val === "dark") {
-            shouldBeDark = true;
-        } else if (val === "light") {
-            shouldBeDark = false;
-        } else {
-            shouldBeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        }
-
-        setIsDarkMode(shouldBeDark);
-
-        if (shouldBeDark) {
-            root.classList.add("dark");
-        } else {
-            root.classList.remove("dark");
-        }
     };
 
     const formatValue = (usdValue: number) => {
